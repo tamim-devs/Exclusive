@@ -7,39 +7,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        white_color: 'var(--white_color)',
-        black738: 'var(--black738)',
-        white_5F5: 'var(--white_5F5)',
-        white_FEFAF1: 'var(--white_FEFAF1)',
-        white_FFFFFF: 'var(--white_FFFFFF)',
-        text_white: 'var(--text_white)',
-        text_7D8184: 'var(--text_7D8184)',
-        text_000000: 'var(--text_000000)',
-        button_000000: 'var(--button_000000)',
-        button_00FF66: 'var(--button_00FF66)',
-        star: 'var(--star_color)',
-        hoverbtn_E07575: 'var(--hoverbtn_E07575)',
-        hoverbtn_A0BCE0: 'var(--hoverbtn_A0BCE0)',
-        red_DB4444: 'var(--red_DB4444)',
-        shop_color: 'var(--shop_color)',
-
+        'primary-fff': 'var(--primary-fff)',
+        'primary-363': 'var(--primary-363)',
+        'secondary-f5f': 'var(--secondary-f5f)',
+        'secondary-fef': 'var(--secondary-fef)',
+        'text-faf': 'var(--text-faf)',
+        'text-7d8': 'var(--text-7d8)',
+        'text2-black': 'var(--text2-black)',
+        'secondary2-db44': 'var(--secondary2-db44)',
+        'button-black': 'var(--button-black)',
+        'button-green': 'var(--button-green)',
+        'button-red': 'var(--button-red)',
+        'hover-btn-red': 'var(--hover-btn-red)',
+        'hover-btn-sky': 'var(--hover-btn-sky)',
+        'black2626': 'var(--black2626)',
+      },
+      fontFamily: {
+        poppins: "var(--poppins)", 
+        inter: "var(--inter)", 
+      },
+      container: {
+        center: true,
+      },
+      spacing: {
+        'container': '1440px',
       },
     },
-    fontFamily: {
-      "poppins": "var(--poppins)",
-      "Inter": "var(--Inter)",
-    },
-    container: {
-      center: true,
-      padding: {
-        // DEFAULT: '1rem',
-        // sm: '2rem',
-        // lg: '4rem',
-        // xl: '5rem',
-        // // '2xl': '1rem',
-      },
-    },
-
+    
   },
   plugins: [],
 }

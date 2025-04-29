@@ -1,51 +1,49 @@
-import React from 'react';
 import {
   createRoutesFromElements,
   createBrowserRouter,
   Route,
-  RouterProvider
+  RouterProvider,
 } from "react-router-dom";
-import Homepage from './pages/home/Homepage';
-import RootlayoutMain from './Component/Rootlayout/RootlayoutMain';
-import ProductPage from './pages/product page/ProductPage';
-import ProductDetails from './pages/productdetails/ProductDetails';
-import Login from './pages/auth/Login/Login';
-import Wishlist from './pages/wishlist/Wishlist';
-import AddToCart from './pages/Add to cart/AddToCart';
-import MyAccount from './pages/myaccount/MyAccount';
-import About from './pages/aboute/About';
-import Contact from './pages/contact/Contact';
-import Page404 from './pages/404page/Page404';
-import Signup from './pages/sign up/Signup';
-import Forget_pasword from './pages/forget password/Forget_pasword';
 
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route path='/' element={<RootlayoutMain />}>
-        <Route index element={<Homepage />}></Route>
-        <Route path='/ProductPage' element={<ProductPage />}></Route>
-        <Route path='/ProductDetails/:id' element={<ProductDetails />}></Route>
-        <Route path='/ProductDetails' element={<ProductPage />}></Route>
-        <Route path='/Login' element={<Login />}></Route>
-        <Route path='/Wishlist' element={<Wishlist />}></Route>
-        <Route path='/AddToCart' element={<AddToCart />}></Route>
-        <Route path='/MyAccount' element={<MyAccount />}></Route>
-        <Route path='/about' element={<About />}></Route>
-        <Route path='/Contact' element={<Contact />}></Route>
-        <Route path='/Signup' element={<Signup />}></Route>
-        <Route path='/Forget_pasword' element={<Forget_pasword />}></Route>
-        <Route path='*' element={<Page404 />}></Route>
+import About from "./pages/about/About";
+import Homepage from "./pages/home/Index";
+import RootLayOut from "./layout/RootLayOut";
+import Contactpage from "./pages/contact/Index";
+import SignuPage from "./pages/signup/Index";
+import ProductPage from "./pages/Product/Index";
+import ProductDetails from "./pages/ProductDetails/Index";
+import LogIn from "./pages/Login/LogIn";
+import WishList from "./pages/wishList/Index";
+import AddToCart from "./pages/AddToCart/AddToCart";
+import MyAccount from "./pages/account/MyAccount";
+import Error from "./pages/Error/Error";
+import CheckOut from "./pages/Checkout/CheckOut";
+function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<RootLayOut />}>
+        <Route path="/home" element={<Homepage />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/contact" element={<Contactpage />} />
+        <Route path="/about" element={<About/>}/>
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="/productDetails" element={<ProductPage />} />
+        <Route path="/productDetails/:id" element={<ProductDetails />} />
+        <Route path="/signup" element={<SignuPage />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/wishlist" element={<WishList />} />
+        <Route path="/cart" element={<AddToCart/>} />
+        <Route path="/account" element={<MyAccount/>} />
+        <Route path="/checkout" element={<CheckOut/>} />
+        <Route path={"*"} element={<Error/>} />
       </Route>
-    </Route>
-  )
-)
-
-
-const App = () => {
-  return <RouterProvider router={router} />
-
+    )
+  );
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
-export default App
+export default App;

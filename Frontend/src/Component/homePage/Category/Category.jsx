@@ -1,63 +1,62 @@
-import React from 'react'
-import ProductComponentLayout from '../../commonComponents/productComponentLayout'
-import CategoryItems from '../../commonComponents/CategoryItems'
-import { BsSmartwatch } from "react-icons/bs";
-import { CiCamera, CiMobile4 } from "react-icons/ci";
-import { HiOutlineComputerDesktop } from "react-icons/hi2";
-import { PiHeadphonesThin } from "react-icons/pi";
-import { LuGamepad } from 'react-icons/lu';
+import React, { useState } from 'react'
+import ProductCommonLayouts from '../../common/commonComponet/ProductCommonLayouts'
+import CategoryCart from '../../common/commonComponet/CategoryCart'
+import { IoGameControllerOutline } from 'react-icons/io5';
+import { CiCamera, CiHeadphones, CiMobile4 } from 'react-icons/ci';
+import { BsSmartwatch } from 'react-icons/bs';
+import { RiComputerLine } from 'react-icons/ri';
+import { useGetCategoryQuery } from '../../../features/Api/exclusiveApi';
 
-const categoryBrowser = [
-     {
-          id: 1,
-          name: "Mobile",
-          img: <CiMobile4 />
-     },
-     {
-          id: 2,
-          name: "Computers",
-          img: <HiOutlineComputerDesktop />
-
-     },
-     {
-          id: 3,
-          name: "SmartWatch",
-          img: <BsSmartwatch />
-
-     },
-     {
-          id: 4,
-          name: "Camera ",
-          img: <CiCamera />
-     },
-     {
-          id: 5,
-          name: "HeadPhones",
-          img: <PiHeadphonesThin />
-     },
-     {
-          id: 6,
-          name: "Gaming",
-          img: <LuGamepad />
-     }
-]
-
+const categoryBrowse = [
+  {
+    id: 1,
+    name: "mobile",
+    img: <CiMobile4 />,
+  },
+  {
+    id: 2,
+    name: "computers",
+    img: <RiComputerLine />,
+  },
+  {
+    id: 3,
+    name: "smartWatch",
+    img: <BsSmartwatch />,
+  },
+  {
+    id: 4,
+    name: "camera",
+    img: <CiCamera />,
+  },
+  {
+    id: 5,
+    name: "headphone",
+    img: <CiHeadphones />,
+  },
+  {
+    id: 6,
+    name: "gaming",
+    img: <IoGameControllerOutline />,
+  },
+];
 const Category = () => {
-     return (
-          <div className='container pb-[70px] border-b-[2px] border-b-gray-300 mt-[140px] mb-[70px]'>
-               <ProductComponentLayout
-                    heading={"Categories"}
-                    description={"Browse By Category"}
-                    isArrowsTrue={true}
-                    ProductCard={CategoryItems}
-                    partialItemShow={6}
-                    copmonentData={categoryBrowser}
-                    slidesToScroll={6}
-
-               />
-
-          </div>
-     )
+  const {data , isLoading, error} = useGetCategoryQuery()
+  const categoryData = data?.data.map((item)=>{
+    return item
+  })
+  return (
+    <div className='mt-20'>
+        <ProductCommonLayouts 
+            ProductCart={CategoryCart}
+            isArrow = {true}
+            partialItemShow={6}
+            heading={"Categories"}
+            description={"Browse By Category"}
+            componentData={categoryData}
+            autoPlay={true}
+        />
+    </div>
+  )
 }
 
 export default Category
