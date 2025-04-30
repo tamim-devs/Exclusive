@@ -2,7 +2,6 @@ const { apiResponse } = require("../utilities/apiResponse");
 const { apiError } = require("../utilities/apiError.js");
 const userModel = require("../model/user.model.js");
 const { sendMail } = require("../helpers/nodemailer");
-
 const {
   emailChecker,
   passwordCheker,
@@ -11,6 +10,7 @@ const {
 } = require("../utilities/cheker.js");
 const { otpgenerator } = require("../helpers/OtpGenerator.js");
 const { makeHaspassword, compareHashpassword } = require("../helpers/brypt.js");
+const { generateToken } = require("../helpers/Jwt.js");
 
 const regestration = async (req, res) => {
   try {
@@ -128,7 +128,7 @@ const login = async (req, res) => {
     });
     console.log(checkisRegistredUser);
     if (!checkisRegistredUser) {
-      return res.status(400, null, null, `user Not found`);
+      return res.status(400).json(400, null, null, `user Not found`);
     }
 
     const isPasswordMatch = await compareHashpassword(
@@ -142,11 +142,29 @@ const login = async (req, res) => {
         .json(new apiError(400, null, null, `Password Invalid`));
     }
 
-    const updatedUser = await userModel.findOneAndUpdate(
-      { email: email },
-      { otp: null, otpExpireDate: null },
-      { new: true }
-    );
+    const updatedUser = await userModel
+      .findOneAndUpdate(
+        { email: email },
+        { otp: null, otpExpireDate: null },
+        { new: true }
+      )
+      .select("-createdAt -otp -password");
+
+    const token = generateToken({
+      _id: updatedUser._id,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      phoneNumber: updatedUser.phoneNumber,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+    });
+    const user = { ...updatedUser._doc, token: `Bearer ${token}` };
+    res.cookie("exclusive_token", token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+      secure: process.env.NODE_ENV !== "development",
+    });
+    return res.status(200).json(new apiResponse(200, "Login Sucessfull", user));
   } catch (error) {
     return res
       .status(500)
