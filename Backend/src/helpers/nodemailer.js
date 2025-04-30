@@ -1,25 +1,23 @@
 const nodemailer = require("nodemailer");
 const { emailTemplate } = require("./emailTemplate");
-require('dotenv').config()
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   secure: true,
   auth: {
-    user: 'tamimaffiliatepatnerhome@gmail.com',
+    user: process.env.HOST_MAIL || "tamimaffiliatepatnerhome@gmail.com",
     pass: process.env.APP_PASSWORD,
   },
 });
 
-
-
-const sendMail = async (firstName,Otp) => {
+const sendMail = async (firstName, Otp) => {
   try {
     const info = await transporter.sendMail({
-      from: 'tamimaffiliatepatnerhome@gmail.com',
+      from: "tamimaffiliatepatnerhome@gmail.com",
       to: "coderhero1@gmail.com",
       subject: "Verification ✔",
-      html: emailTemplate(firstName,Otp),
+      html: emailTemplate(firstName, Otp),
     });
     console.log("Email sent successfully:", info.messageId);
     return info.messageId;
@@ -29,5 +27,4 @@ const sendMail = async (firstName,Otp) => {
   }
 };
 
-
-module.exports = {sendMail}
+module.exports = { sendMail };
