@@ -18,13 +18,13 @@ const regestration = async (req, res) => {
       firstName,
       email,
       phoneNumber,
-      adress1,
+      address1,
       password,
       lastName,
-      adress2,
+      address2,
     } = req.body;
 
-    if (!firstName || !email || !phoneNumber || !adress1 || !password) {
+    if (!firstName || !email || !phoneNumber || !address1 || !password) {
       return res
         .status(401)
         .json(new apiResponse(401, null, null, ` User Creadeantial Missing`));
@@ -37,7 +37,7 @@ const regestration = async (req, res) => {
     ) {
       return res
         .status(401)
-        .json(new apiError(401, null, null, ` Email format Invalid Missing`));
+        .json(new apiError(401, null, null, `Invalid User Creadeantial`));
     }
 
     // check isAlreadyExistuser in database
@@ -76,10 +76,10 @@ const regestration = async (req, res) => {
         firstName,
         email,
         phoneNumber,
-        adress1,
+        address1,
         password: haspassword,
         ...(lastName && { lastName }),
-        ...(adress2 && { adress2: adress2 }),
+        ...(address2 && { adress2: address2 }),
       });
 
       const updatedUser = await userModel
