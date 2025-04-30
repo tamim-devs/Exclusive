@@ -32,7 +32,8 @@ const regestration = async (req, res) => {
 
     if (
       !emailChecker(email) ||
-      !passwordCheker(password) ||
+      // ?TODO: uncomment the password checker
+      // !passwordCheker(password) ||
       !bdNumberChecker(phoneNumber)
     ) {
       return res
