@@ -16,4 +16,9 @@ const bdNumberChecker = (number) => {
   const numberRegex = /^(?:(?:\+|00)88|01)?\d{11}$/;
   return numberRegex.test(number);
 };
-module.exports = { emailChecker, passwordCheker, bdNumberChecker };
+
+const otpChecker = (otp) => {
+  const otpRegex = /^\d{6}$/;
+  return otpRegex.test(otp);
+};
+module.exports = { emailChecker, passwordCheker, bdNumberChecker, otpChecker };

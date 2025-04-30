@@ -7,6 +7,7 @@ const {
   emailChecker,
   passwordCheker,
   bdNumberChecker,
+  otpChecker,
 } = require("../utilities/cheker.js");
 const { otpgenerator } = require("../helpers/OtpGenerator.js");
 const { makeHaspassword, compareHashpassword } = require("../helpers/brypt.js");
@@ -131,4 +132,20 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { regestration, login };
+const otp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    if (!email || !otp || !emailChecker(email) || !otpChecker(otp)) {
+      return res
+        .status(400)
+        .json(new apiError(400, null, null, `Email or otp Invalid`));
+    }
+  } catch (error) {
+    console.log("Error from otp controller", error);
+    return res
+      .status(500)
+      .json(new apiError(500, null, null, `Otp controller Error: ${error}`));
+  }
+};
+
+module.exports = { regestration, login, otp };
