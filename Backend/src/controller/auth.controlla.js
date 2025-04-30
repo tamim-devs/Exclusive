@@ -115,20 +115,38 @@ const regestration = async (req, res) => {
 // login controller
 const login = async (req, res) => {
   try {
-    const { emailOrphoneNumber, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!emailOrphoneNumber || !password) {
+    if (!email || !password) {
       return res
         .status(400)
         .json(new apiError(400, null, null, `Email or password Invalid`));
     }
     // check is email / phone number is correct or not
     const checkisRegistredUser = await userModel.find({
-      email: emailOrphoneNumber,
+      email: email,
     });
     console.log(checkisRegistredUser);
     if (!checkisRegistredUser) {
+      return res.status(400, null, null, `user Not found`);
     }
+
+    const isPasswordMatch = await compareHashpassword(
+      password,
+      checkisRegistredUser[0].password
+    );
+
+    if (!isPasswordMatch) {
+      return res
+        .status(400)
+        .json(new apiError(400, null, null, `Password Invalid`));
+    }
+
+    const updatedUser = await userModel.findOneAndUpdate(
+      { email: email },
+      { otp: null, otpExpireDate: null },
+      { new: true }
+    );
   } catch (error) {
     return res
       .status(500)
