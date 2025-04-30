@@ -148,4 +148,20 @@ const otp = async (req, res) => {
   }
 };
 
-module.exports = { regestration, login, otp };
+const userAuth = async (req, res) => {
+  try {
+    const { user } = req.body;
+    return res
+      .status(200)
+      .json(new apiResponse(200, "User Auth Sucessfull", user, false));
+  } catch (error) {
+    console.log("Error from userAuth controller", error);
+    return res
+      .status(500)
+      .json(
+        new apiError(500, null, null, `userAuth controller Error: ${error}`)
+      );
+  }
+};
+
+module.exports = { regestration, login, otp, userAuth };
