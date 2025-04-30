@@ -32,7 +32,7 @@ const regestration = async (req, res) => {
 
     if (
       !emailChecker(email) ||
-      // ?TODO: uncomment the password checker
+      // TODO: uncomment the password checker
       // !passwordCheker(password) ||
       !bdNumberChecker(phoneNumber)
     ) {
@@ -116,6 +116,7 @@ const regestration = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { emailOrphoneNumber, password } = req.body;
+
     if (!emailOrphoneNumber || !password) {
       return res
         .status(400)
@@ -123,9 +124,11 @@ const login = async (req, res) => {
     }
     // check is email / phone number is correct or not
     const checkisRegistredUser = await userModel.find({
-      $or: [{ email: emailOrphoneNumber }, { password: password }],
+      email: emailOrphoneNumber,
     });
     console.log(checkisRegistredUser);
+    if (!checkisRegistredUser) {
+    }
   } catch (error) {
     return res
       .status(500)
