@@ -1,10 +1,12 @@
 const { aleaRNGFactory } = require("number-generator");
 
-const otpgenerator = () => {
-  console.log(aleaRNGFactory(Date.now()));
-  
-  const { uInt32 } = aleaRNGFactory(Date.now());
-  return uInt32().toString().slice(0, 4);
+const OtpGenerator = () => {
+  try {
+    const otp = aleaRNGFactory(new Date());
+    return otp.uInt32().toString().slice(0, 4);
+  } catch (error) {
+    console.log("Error from otpGenerator fucntion ", error);
+  }
 };
 
-module.exports = { otpgenerator };
+module.exports = { OtpGenerator };

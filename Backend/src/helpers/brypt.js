@@ -1,17 +1,19 @@
 const bcrypt = require("bcrypt");
-const makeHaspassword = async (plainPassword) => {
+const encryptPassword = async (plainPassoword) => {
   try {
-    const encryptedPass = await bcrypt.hash(plainPassword, 10);
-    console.log(encryptedPass);
-    
-    return encryptedPass;
+    const hashPasword = await bcrypt.hash(plainPassoword, 10);
+    return hashPasword;
   } catch (error) {
-    console.log("Error from makeHashPassword method", error);
+    console.log("Error from encryptPassword ", error);
   }
 };
 
-const compareHashpassword = async (PlaintextPassword, hash) => {
-  return await bcrypt.compare(PlaintextPassword, hash);
+const decreptedPassword = async (plainPassoword, encryptedPass) => {
+  try {
+    return await bcrypt.compare(plainPassoword, encryptedPass);
+  } catch (error) {
+    console.log("Error from decreptedPassword ", error);
+  }
 };
 
-module.exports = { makeHaspassword, compareHashpassword };
+module.exports = { encryptPassword, decreptedPassword };
